@@ -9,10 +9,19 @@ import './index.scss';
 const client = new QueryClient();
 
 const AppContent = () => {
-  const hello = trpc.useQuery(['hello']);
+  const getMessages = trpc.useQuery(['getMessages']);
+  const addMessage = trpc.useMutation(['addMessage']);
+
+  const onAdd = () => {
+    addMessage.mutate({
+      message: 'Hello kenya',
+      user: 'Abel',
+    });
+  };
   return (
     <div className="mt-10 text-3xl mx-auto max-w-6xl">
-      {JSON.stringify(hello.data)}
+      {JSON.stringify(getMessages.data)}
+      <button onClick={onAdd}>Add Message</button>
     </div>
   );
 };
