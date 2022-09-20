@@ -13,10 +13,17 @@ const AppContent = () => {
   const addMessage = trpc.useMutation(['addMessage']);
 
   const onAdd = () => {
-    addMessage.mutate({
-      message: 'Hello kenya',
-      user: 'Abel',
-    });
+    addMessage.mutate(
+      {
+        message: 'Hello kenya',
+        user: 'Ben',
+      },
+      {
+        onSuccess: () => {
+          client.invalidateQueries(['getMessages']);
+        },
+      }
+    );
   };
   return (
     <div className="mt-10 text-3xl mx-auto max-w-6xl">
